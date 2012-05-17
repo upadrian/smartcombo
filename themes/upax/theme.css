@@ -1,5 +1,4 @@
 @charset "utf-8";
-/* CSS Document */
 .sc {
 	border:1px solid #eee;
 	padding:2px;
@@ -44,5 +43,4 @@
 }
 .sc .sc_label {
 	overflow:hidden;
-/*	height:18px;	*/
 }
