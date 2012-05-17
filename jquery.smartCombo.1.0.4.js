@@ -71,20 +71,8 @@
 				})
 				html += '		<br clear="all" />';
 				html += '		</ul>';
-				/*
-				if(cache.props.multiple){
-    				html += '		<div class="' + cache.props._footerDivClass + '">';
-    				html += '			<small>';
-    				html += '				<span>Seleccionar:&nbsp;</span>';
-    				html += '				<a href="javascript:;" class="' + cache.props._footerAbt + ' ' + cache.props._footerBTall + '" >[todos]</a>&nbsp;';
-    				html += '				<a href="javascript:;" class="' + cache.props._footerAbt + ' ' + cache.props._footerBTnone + '">[ninguno]</a>';
-    				html += '			</small>';
-    				html += '		</div>';
-    			}
-				*/
 				html += '	</div>';
 				html += '</div>';
-				//
 				cache.sourceJQO.css("display", "none").after(html);
 				cache.sc = $("#" + cache.props.destID);
 				cache.sc_options = $("." + cache.props._liClass + " a", cache.sc);
@@ -98,26 +86,6 @@
 				options.wrapper = cache.wrapper;
 				methods.setActions();
 			},
-			/*selectAll: function(sc) {
-				sc = sc || $(this);
-				var options = sc.data("options");
-				$("." + cache.props._liClassOptGroup, sc).data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
-				cache.settings.removeClass(cache.props._optionSelectedClass);
-				$("." + cache.props._liClassOptGroup, sc).each(function() {
-					$(this).data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
-				});
-				cache.settings.addClass(cache.props._optionSelectedClass);
-				methods.populateLabels(sc);
-				methods.updateSmartCombo(sc);
-			},
-			unSelectAll: function(sc) {
-				sc = sc || $(this);
-				var options = sc.data("options");
-				$("." + cache.props._liClassOptGroup, sc).data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
-				cache.settings.removeClass(cache.props._optionSelectedClass);
-				methods.populateLabels(sc);
-				methods.updateSmartCombo(sc);
-			},*/
 			destroy: function() {
 				return this.each(function() {
 					var $this = $(this),
@@ -125,11 +93,8 @@
 					$this.removeData('smartCombo');
 				})
 			},
-			
-			/* -------------- */
 			populateLabels: function() {
 				var tmp = [];
-				//recorro cada opcion seleccionada(no cachear)
 				$("." + cache.props._optionSelectedClass + " span", cache.sc).each(function() {
 					tmp.push($(this).html());
 				});
@@ -140,18 +105,16 @@
 				cache.sc_label.html(label);
 			},
 			reArmFromSource: function() {
-				//rearm
 				var indexes = [];
-				//
 				for (vi = 0; vi < cache.sourceNode.options.length; vi++)
-				if (cache.sourceNode.options.item(vi).selected) indexes.push(String(vi));
-				//
+					if (cache.sourceNode.options.item(vi).selected) 
+						indexes.push(String(vi));
 				cache.sc_options.each(function() {
-					if (jQuery.inArray($(this).attr("index"), indexes) != -1) $(this).addClass(cache.props._optionSelectedClass);
+					if (jQuery.inArray($(this).attr("index"), indexes) != -1) 
+						$(this).addClass(cache.props._optionSelectedClass);
 					else
-					$(this).removeClass(cache.props._optionSelectedClass);
+						$(this).removeClass(cache.props._optionSelectedClass);
 				});
-				//chequeamos los optgroup en el smartcombo
 				cache.sc_optgroups.each(function() {
 					var optgroupJQO = $(this)
 					ok = true;
@@ -159,17 +122,18 @@
 					$("." + cache.props._liClass + " a", optgroupJQO).each(function() {
 						if (!$(this).hasClass(cache.props._optionSelectedClass)) ok = false;
 					})
-					if (ok) optgroupJQO.data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
+					if (ok) 
+						optgroupJQO.data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
 					else
-					optgroupJQO.data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
+						optgroupJQO.data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
 				});
-				if (!cache.props.multiple) if (cache.settings._closeOnClick) cache.settings._open = methods.closeWrapper();
+				if (!cache.props.multiple && cache.settings._closeOnClick) 
+						cache.settings._open = methods.closeWrapper();
 				methods.populateLabels();
 			},
 			getNode: function(JQOnode) {
 				var html = '',
 					JSOnode = JQOnode.get(0);
-				//
 				if (JSOnode.tagName == "OPTGROUP") {
 					html += '<li class="' + cache.props._liClassOptGroup + '">';
 					if (cache.props.multiple) 
@@ -194,13 +158,10 @@
 				return html;
 			},
 			clickOnOptGroup: function(optgroup) {
-				// si está seleccionado
 				if (optgroup.data("seleccionado")) {
-					//para todos los <a> dentro de los <li>._liclass optgroup
 					$("." + cache.props._liClass + " a", optgroup).removeClass(cache.props._optionSelectedClass);
 					optgroup.data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
 				} else {
-					//para todos los <a> dentro de los <li>._liclass optgroup
 					$("." + cache.props._liClass + " a", optgroup).addClass(cache.props._optionSelectedClass);
 					optgroup.data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
 				};
@@ -219,7 +180,8 @@
 			},
 			setActions: function() {
 				cache.sc_label.click(function() {
-					if (cache.settings._closeOnClick) cache.settings._open = ((cache.settings._open) ? methods.closeWrapper() : methods.openWrapper());
+					if (cache.settings._closeOnClick) 
+						cache.settings._open = ((cache.settings._open) ? methods.closeWrapper() : methods.openWrapper());
 				});
 				cache.sc_options.click(function() {
 					methods.clickOnOption($(this));
@@ -229,12 +191,6 @@
 						methods.clickOnOptGroup($(this).parent());
 					})
 				}
-				/*$("." + options._footerBTall, sc).click(function() {
-    				methods.selectAll(sc);
-    			});
-    			$("." + options._footerBTnone, sc).click(function() {
-    				methods.unSelectAll(sc);
-    			});*/
 				methods.setEvents();
 			},
 			setEvents: function() {
@@ -247,14 +203,10 @@
 				cache.sourceJQO.change(function() {
 					methods.reArmFromSource();
 				});
-				if (cache.settings.reArmOnLoad) methods.reArmFromSource();
-				if (cache.settings._initialState == 'open') methods.openWrapper();
-				/*if(cache.settings.setAllSelectedTofalse) {
-    				var targetJSnode = options.sourceJQO.get(0),
-    				JSnodeOptions = targetJSnode.options;
-    				for (vi = 0; vi < JSnodeOptions.length; vi++)
-    					JSnodeOptions.item(vi).selected = false;
-    			}*/
+				if (cache.settings.reArmOnLoad) 
+					methods.reArmFromSource();
+				if (cache.settings._initialState == 'open') 
+					methods.openWrapper();
 			},
 			openWrapper: function() {
 				cache.wrapper.css("display", "block");
@@ -266,27 +218,26 @@
 			},
 			clickOnOption: function(selectedOption) {
 				if (!cache.props.multiple) {
-					//como no es multiple
 					cache.sc_options.removeClass(cache.props._optionSelectedClass);
-					if (cache.settings._closeOnClick) cache.settings._open = methods.closeWrapper();
+					if (cache.settings._closeOnClick) 
+						cache.settings._open = methods.closeWrapper();
 				}
-				//		
-				if (selectedOption.hasClass(cache.props._optionSelectedClass)) selectedOption.removeClass(cache.props._optionSelectedClass);
+				if (selectedOption.hasClass(cache.props._optionSelectedClass))
+					selectedOption.removeClass(cache.props._optionSelectedClass);
 				else
-				selectedOption.addClass(cache.props._optionSelectedClass);
-				//captamos si tiene un optgroup antes
+					selectedOption.addClass(cache.props._optionSelectedClass);
 				var optgroupJQO = selectedOption.parent().parent().parent();
 				if (optgroupJQO.length > 0) {
 					var ok = true;
-					// todos los <a> dentro de el <li>._liclass dentro del optgroupJQO
 					$("." + cache.props._liClass + " a", optgroupJQO).each(function() {
-						if (!$(this).hasClass(cache.props._optionSelectedClass)) ok = false;
+						if (!$(this).hasClass(cache.props._optionSelectedClass)) 
+							ok = false;
 					})
-					if (ok) optgroupJQO.data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
+					if (ok) 
+						optgroupJQO.data("seleccionado", true).children("a").addClass(cache.props._optgroupSelectedClass);
 					else
-					optgroupJQO.data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
+						optgroupJQO.data("seleccionado", false).children("a").removeClass(cache.props._optgroupSelectedClass);
 				}
-				//populamos
 				methods.populateLabels();
 				methods.updateSmartCombo();
 			}
