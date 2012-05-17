@@ -14,8 +14,6 @@ fieldset {
 	float:left;
 }
 </style>
-<!-- HTMLINCLUDES -->
-
 </head>
 <body>
 <form>
@@ -33,18 +31,17 @@ fieldset {
 	<fieldset>
 		<legend>Multiple, abierto, optgroup. #cuatro</legend>
 		<select multiple="multiple" id="cuatro" name="select4" style="width:200px;height:100px;">
-			<optgroup label="uno">
-			
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
+			<optgroup label="uno">			
+				<option value="1" >opcion 1</option>
+				<option value="2">opcion 2</option>
 			</optgroup>
 			<optgroup label="dos">
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
+				<option value="3" >opcion 3</option>
+				<option value="4">opcion 4</option>
 			</optgroup>
 			<optgroup label="tres">
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
+				<option value="5" selected="selected">opcion 5</option>
+				<option value="6">opcion 6</option>
 			</optgroup>
 		</select>
 	</fieldset>
@@ -75,17 +72,16 @@ fieldset {
 		<legend>Simple, abierto, optgroup. #cinco</legend>
 		<select id="cinco" name="select5" style="width:200px;height:100px;">
 			<optgroup label="uno">
-			
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
+				<option value="1" >opcion 1</option>
+				<option value="2">opcion 2</option>
 			</optgroup>
 			<optgroup label="dos">
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
+				<option value="3" >opcion 3</option>
+				<option value="4">opcion 4</option>
 			</optgroup>
 			<optgroup label="tres">
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
+				<option value="5" selected="selected">opcion 5</option>
+				<option value="6">opcion 6</option>
 			</optgroup>
 		</select>
 	</fieldset>
@@ -93,17 +89,16 @@ fieldset {
 		<legend>Simple, cerrado, optgroup. #seis</legend>
 		<select id="seis" name="select6" style="width:200px;height:100px;">
 			<optgroup label="uno">
-			
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
+				<option value="1" >opcion 1</option>
+				<option value="2">opcion 2</option>
 			</optgroup>
 			<optgroup label="dos">
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
+				<option value="3" >opcion 3</option>
+				<option value="4">opcion 4</option>
 			</optgroup>
 			<optgroup label="tres">
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
+				<option value="5" selected="selected">opcion 5</option>
+				<option value="6">opcion 6</option>
 			</optgroup>
 		</select>
 	</fieldset>
@@ -154,7 +149,7 @@ $(document).ready(function(){
 			_initialState: 'close',
 			_closeOnClick:true
 		});
-				$("select").change(function(){
+		$("select").change(function(){
 			try{
 				console.debug("change fired on #"+$(this).attr("id")+" val:");
 				console.debug($(this).val());
