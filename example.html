@@ -2,163 +2,237 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{_DOMAIN_} :: {title} :: Administrador</title>
+<title>Smart jQuery Combo</title>
 <script type="text/javascript" src="jquery.1.7-min.js"></script>
 <script type="text/javascript" src="jquery.smartCombo.1.0.4-min.js"></script>
 <link rel="stylesheet" href="themes/upax/theme.css" />
 <style media="all">
 * { font-family:Arial, Helvetica, sans-serif }
-fieldset {
-	display:block;
-	width:223px;
-	float:left;
-}
+/* previene que se vea el select antes de crear el smartcombo */
+select { display:none }
+/* ajustes al estilo del smart combo */
+.sc { width:223px; }
+pre {display:block;margin:5px;padding:5px;background-color:#eee; font-family:"Courier New", Courier, monospace; }
 </style>
 </head>
 <body>
+<h1>Smart jQuery Combo DEMO</h1>
+<p>git: <a href="https://github.com/upadrian/smartcombo" title="git" target="_blank">https://github.com/upadrian/smartcombo</a></p>
 <form>
-	<fieldset>
-		<legend>Multiple. #uno</legend>
-		<select multiple="multiple" id="uno" name="select1" style="width:200px;height:100px;">
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
-		</select>
-	</fieldset>
-	<fieldset>
-		<legend>Multiple, abierto, optgroup. #cuatro</legend>
-		<select multiple="multiple" id="cuatro" name="select4" style="width:200px;height:100px;">
-			<optgroup label="uno">			
-				<option value="1" >opcion 1</option>
-				<option value="2">opcion 2</option>
-			</optgroup>
-			<optgroup label="dos">
-				<option value="3" >opcion 3</option>
-				<option value="4">opcion 4</option>
-			</optgroup>
-			<optgroup label="tres">
-				<option value="5" selected="selected">opcion 5</option>
-				<option value="6">opcion 6</option>
-			</optgroup>
-		</select>
-	</fieldset>
-	<fieldset>
-		<legend>Simple, abierto. #dos</legend>
-		<select id="dos" name="select2" style="width:200px;height:100px;">
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
-		</select>
-	</fieldset>
-	<fieldset>
-		<legend>Simple, cerrado. #tres</legend>
-		<select id="tres" name="select3" style="width:200px;height:100px;">
-			<option value="1" >opcion 1</option>
-			<option value="2">opcion 2</option>
-			<option value="3" >opcion 3</option>
-			<option value="4">opcion 4</option>
-			<option value="5" selected="selected">opcion 5</option>
-			<option value="6">opcion 6</option>
-		</select>
-	</fieldset>
-	
-	<fieldset>
-		<legend>Simple, abierto, optgroup. #cinco</legend>
-		<select id="cinco" name="select5" style="width:200px;height:100px;">
-			<optgroup label="uno">
-				<option value="1" >opcion 1</option>
-				<option value="2">opcion 2</option>
-			</optgroup>
-			<optgroup label="dos">
-				<option value="3" >opcion 3</option>
-				<option value="4">opcion 4</option>
-			</optgroup>
-			<optgroup label="tres">
-				<option value="5" selected="selected">opcion 5</option>
-				<option value="6">opcion 6</option>
-			</optgroup>
-		</select>
-	</fieldset>
-	<fieldset>
-		<legend>Simple, cerrado, optgroup. #seis</legend>
-		<select id="seis" name="select6" style="width:200px;height:100px;">
-			<optgroup label="uno">
-				<option value="1" >opcion 1</option>
-				<option value="2">opcion 2</option>
-			</optgroup>
-			<optgroup label="dos">
-				<option value="3" >opcion 3</option>
-				<option value="4">opcion 4</option>
-			</optgroup>
-			<optgroup label="tres">
-				<option value="5" selected="selected">opcion 5</option>
-				<option value="6">opcion 6</option>
-			</optgroup>
-		</select>
-	</fieldset>
-</form>
-<script>
-$(document).ready(function(){
-		$("select#uno").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'relative',
-			_closeOnMouseLeave: false,
-			_initialState: 'open'	
+	<h3>#sc-mawr, Multiple, abierto, wrapper relativo</h3>
+	<select multiple="multiple" id="sc-mawr" name="select1" style="width:200px;height:100px;">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+	</select>
+	<pre>
+$("select#sc-mawr").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'relative',
+	_closeOnMouseLeave: false,
+	_initialState: 'open'	
+});
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-mawr").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'relative',
+				_closeOnMouseLeave: false,
+				_initialState: 'open'	
+			});
 		});
-		$("select#dos").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'relative',
-			_closeOnMouseLeave: false,
-			_initialState: 'open',
-			_closeOnClick:false
+	</script>
+	<h3>#sc-maoqr, Multiple, abierto, optgroup, wrapper relativo</h3>
+	<select multiple="multiple" id="sc-maoqr" name="select4" style="width:200px;height:100px;">
+		<optgroup label="uno">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		</optgroup>
+		<optgroup label="dos">
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		</optgroup>
+		<optgroup label="tres">
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+		</optgroup>
+	</select>
+	<pre>
+$("select#sc-maoqr").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'relative',
+	_closeOnMouseLeave: false,
+	_initialState: 'open'	
+});	
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-maoqr").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'relative',
+				_closeOnMouseLeave: false,
+				_initialState: 'open'	
+			});	
 		});
-		$("select#tres").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'absolute',
-			_closeOnMouseLeave: true
+	</script>
+	<h3>#sc-scwa, Simple, cerrado, wrapper absoluto.</h3>
+	<select id="sc-scwa" name="select3" style="width:200px;height:100px;">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+	</select>
+	<pre>
+$("select#sc-scwa").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'absolute',
+	_closeOnMouseLeave: true
+});
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-scwa").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'absolute',
+				_closeOnMouseLeave: true
+			});
 		});
-		$("select#cuatro").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'relative',
-			_closeOnMouseLeave: false,
-			_initialState: 'open'	
-		});
-		$("select#cinco").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'relative',
-			_closeOnMouseLeave: false,
-			_initialState: 'open',
-			_closeOnClick:false	
-		});
-		$("select#seis").smartCombo({
-			reArmOnLoad: true,
-			setAllSelectedTofalse: false,
-			_wrapperPosition: 'relative',
-			_closeOnMouseLeave: false,
-			_initialState: 'close',
-			_closeOnClick:true
-		});
-		$("select").change(function(){
-			try{
-				console.debug("change fired on #"+$(this).attr("id")+" val:");
-				console.debug($(this).val());
-			}catch(e){}
-		});
-
-		
+	</script>
+	<h3>#sc-scowa, Simple, cerrado, optgroup, wrapper absoluto.</h3>
+	<select id="sc-scowa" name="select6" style="width:200px;height:100px;">
+		<optgroup label="uno">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		</optgroup>
+		<optgroup label="dos">
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		</optgroup>
+		<optgroup label="tres">
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+		</optgroup>
+	</select>
+	<pre>
+$("select#sc-scwa").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'absolute',
+	_closeOnMouseLeave: true
 });
 
-</script>
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-scowa").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'relative',
+				_closeOnMouseLeave: false,
+				_initialState: 'close',
+				_closeOnClick:true
+			});
+		});
+	</script>
+	<h3>#sc-sawr, Simple, abierto, wrapper relativo</h3>
+	<select id="sc-sawr" name="select2" style="width:200px;height:100px;">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+	</select>
+	<pre>
+$("select#sc-sawr").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'relative',
+	_closeOnMouseLeave: false,
+	_initialState: 'open',
+	_closeOnClick:false
+});
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-sawr").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'relative',
+				_closeOnMouseLeave: false,
+				_initialState: 'open',
+				_closeOnClick:false
+			});
+		});
+		</script>
+	<h3>#sc-saowr, Simple, abierto, optgroup, wrapper relativo.</h3>
+	<select id="sc-saowr" name="select5" style="width:200px;height:100px;">
+		<optgroup label="uno">
+		<option value="1" >opcion 1</option>
+		<option value="2">opcion 2</option>
+		</optgroup>
+		<optgroup label="dos">
+		<option value="3" >opcion 3</option>
+		<option value="4">opcion 4</option>
+		</optgroup>
+		<optgroup label="tres">
+		<option value="5" selected="selected">opcion 5</option>
+		<option value="6">opcion 6</option>
+		</optgroup>
+	</select>
+	<pre>
+$("select#sc-saowr").smartCombo({
+	reArmOnLoad: true,
+	setAllSelectedTofalse: false,
+	_wrapperPosition: 'relative',
+	_closeOnMouseLeave: false,
+	_initialState: 'open',
+	_closeOnClick:false	
+});
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select#sc-saowr").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'relative',
+				_closeOnMouseLeave: false,
+				_initialState: 'open',
+				_closeOnClick:false	
+			});
+	});
+	</script>
+	<h2>Eventos:</h2>
+	<pre>	
+$("select").change(function(){
+	try{
+		console.debug("change fired on #"+$(this).attr("id")+" val:");
+		console.debug($(this).val());
+	}catch(e){}
+});
+	</pre>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select").change(function(){
+				try{
+					console.debug("change fired on #"+$(this).attr("id")+" val:");
+					console.debug($(this).val());
+				}catch(e){}
+			});
+		});
+	</script>
+</form>
 </body>
 </html>
