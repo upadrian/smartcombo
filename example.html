@@ -12,12 +12,19 @@
 select { display:none }
 /* ajustes al estilo del smart combo */
 .sc { width:223px; }
-pre {display:block;margin:5px;padding:5px;background-color:#eee; font-family:"Courier New", Courier, monospace; }
+pre {
+	display:block;
+	margin:5px;
+	padding:5px;
+	background-color:#eee;
+	font-family:"Courier New", Courier, monospace;
+}
 </style>
 </head>
 <body>
 <h1>Smart jQuery Combo DEMO</h1>
 <p>git: <a href="https://github.com/upadrian/smartcombo" title="git" target="_blank">https://github.com/upadrian/smartcombo</a></p>
+<hr />
 <form>
 	<h3>#sc-mawr, Multiple, abierto, wrapper relativo</h3>
 	<select multiple="multiple" id="sc-mawr" name="select1" style="width:200px;height:100px;">
@@ -48,6 +55,7 @@ $("select#sc-mawr").smartCombo({
 			});
 		});
 	</script>
+	<hr />
 	<h3>#sc-maoqr, Multiple, abierto, optgroup, wrapper relativo</h3>
 	<select multiple="multiple" id="sc-maoqr" name="select4" style="width:200px;height:100px;">
 		<optgroup label="uno">
