@@ -6,6 +6,9 @@
 *	
 * 	bugfix y notas de la version:
 *	-----------------------------
+*		1.0.4.1
+*			Para un selector que refiera a varios elementos, los tomaba como uno solo. Por ejemplo $("#select1,#select2")
+*			
 *		1.0.4
 *			Revisado el rendimiendo. Ahora se cachean las consultas al DOM. Se eliminan variables sin usar. TODO: resolver el
 *			pie "seleccionar todos / ninguno" de los combos multiples y multiples con optgroups
@@ -22,9 +25,10 @@
 		var cache = {};
 		var methods = {
 			init: function(options) {
-				this.each(function() {
-					methods.sc_init($(this), options)
-				});
+				if($(this).length>1)
+					$(this).each(function(){$(this).smartCombo(options);});
+				else
+					methods.sc_init($(this),options)
 			},
 			sc_init: function(JQO, options) {
 				cache.sourceJQO = JQO;
@@ -242,9 +246,11 @@
 				methods.updateSmartCombo();
 			}
 		};
-		if (methods[method]) return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		else if (typeof method === 'object' || !method) return methods.init.apply(this, arguments);
+		if (methods[method]) 
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+		else if (typeof method === 'object' || !method) 
+			return methods.init.apply(this, arguments);
 		else
-		$.error('Method ' + method + ' does not exist on jQuery.smartCombo');
+			$.error('Method ' + method + ' does not exist on jQuery.smartCombo');
 	};
 })(jQuery);
