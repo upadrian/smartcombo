@@ -162,6 +162,9 @@ header ul a strong {
 	color: #fff;
 	-webkit-font-smoothing: antialiased;
 }
+header ul li:hover{
+	background-color:#597FEE,
+}
 section {
 	padding: 15px 20px;
 	font-size: 15px;
