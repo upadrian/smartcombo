@@ -6,6 +6,9 @@
 *	
 * 	bugfix y notas de la version:
 *	-----------------------------
+*		1.0.4.2
+*			css fixed en theme/pela
+*			br remove en el armado html
 *		1.0.4.1
 *			Para un selector que refiera a varios elementos, los tomaba como uno solo. Por ejemplo $("#select1,#select2")
 *			
@@ -86,7 +89,7 @@
 				cache.hasOptgrups = ($("optgroup", cache.sourceJQO).length > 0) ? true : false;
 				cache.optgroups = $("optgroup", cache.sourceJQO);
 				cache.options = $("option", cache.sourceJQO);
-				options.wrapper = cache.wrapper;
+				//options.wrapper = cache.wrapper;
 				methods.setActions();
 			},
 			destroy: function() {
