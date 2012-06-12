@@ -89,7 +89,6 @@
 				cache.hasOptgrups = ($("optgroup", cache.sourceJQO).length > 0) ? true : false;
 				cache.optgroups = $("optgroup", cache.sourceJQO);
 				cache.options = $("option", cache.sourceJQO);
-				//options.wrapper = cache.wrapper;
 				methods.setActions();
 			},
 			destroy: function() {
