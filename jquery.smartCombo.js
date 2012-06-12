@@ -73,7 +73,6 @@
 				cache.sourceJQO.children("optgroup,option").each(function() {
 					html += methods.getNode($(this));
 				})
-				html += '		<br clear="all" />';
 				html += '		</ul>';
 				html += '	</div>';
 				html += '</div>';
