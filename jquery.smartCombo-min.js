@@ -1,6 +1,7 @@
 /*
 * Convierte un combo multiple en botones clickeables
 * author: upadrian@gmail.com
+* http://upadrian.github.com/smartcombo
 *
 * version 1.0.5 18/06/2012
 *	
