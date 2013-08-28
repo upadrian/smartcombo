@@ -2,10 +2,12 @@
 * Convierte un combo multiple en botones clickeables
 * author: upadrian@gmail.com
 *
-* version 1.0.5 18/06/2012
+* version 1.5 07/2013
 *	
 * 	bugfix y notas de la version:
 *	-----------------------------
+*		1.5
+*			
 *		1.0.5
 *			más bugfix(no selecciona el primer elemento cuando hay un elemento con selected="selected" desde el HTML). Agregado los comentarios
 *		1.0.4.2
@@ -34,7 +36,9 @@
                 if($(this).length == 1)
                     methods.sc_init($(this),options)
 				else if($(this).length>1)
-					$(this).each(function(){$(this).smartCombo(options);});	
+					$(this).each(function(){
+						$(this).smartCombo(options);
+					});	
 			},
 			sc_init: function(JQO, options) {
                 //init
@@ -52,7 +56,8 @@
 					_closeOnMouseLeave: true,
 					reArmOnLoad: true,
 					setAllSelectedTofalse: false,
-					_initialState: 'close'
+					_initialState: 'close',
+					showSelectedLabels: true
 				};
 				cache.settings = $.extend(defaults, options);
 				cache.props = {
@@ -168,10 +173,13 @@
 					tmp.push($(this).html());
 				});
 				cache.sc.data("labels", tmp);
-				var label = tmp.join(", ");
-				if (label == '') 
-					label = ((cache.props.multiple) ? cache.settings._text_labelMultiple : cache.settings._text_labelSimple);
-				cache.sc_label.html(label);
+					var label = tmp.join(", ");
+					if (label == '') 
+						label = ((cache.props.multiple) ? cache.settings._text_labelMultiple : cache.settings._text_labelSimple);
+						
+				if(cache.settings.showSelectedLabels)
+					cache.sc_label.html(label);
+				cache.sc_label.attr("title",label);
 			},
 			reArmFromSource: function() {
                 //rearma el sc desde el select
