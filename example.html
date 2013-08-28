@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Smart jQuery Combo</title>
 <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="jquery.smartCombo.js"></script>
+<script type="text/javascript" src="jquery.smartCombo-2.0.js"></script>
 <link rel="stylesheet" href="themes/pela/theme.css" />
 <style media="all">
 * { font-family:Arial, Helvetica, sans-serif }
@@ -45,13 +45,17 @@ pre {
 		<option value="6">opcion 2.6</option>
 	</select>
 	<pre>
-$("select#sc-scwa,select#sc-scwa2").smartCombo({
-	reArmOnLoad: true,
-	setAllSelectedTofalse: false,
-	_wrapperPosition: 'absolute',
-	_closeOnMouseLeave: true
-});
+		$(document).ready(function(){
+			$("select#sc-scwa,select#sc-scwa2").smartCombo({
+				reArmOnLoad: true,
+				setAllSelectedTofalse: false,
+				_wrapperPosition: 'absolute',
+				_closeOnMouseLeave: true
+			});
+		});
 	</pre>
+	
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("select#sc-scwa,select#sc-scwa2").smartCombo({
@@ -62,6 +66,7 @@ $("select#sc-scwa,select#sc-scwa2").smartCombo({
 			});
 		});
 	</script>
+	<!-- 
 	<h3>#sc-mawr, Multiple, abierto, wrapper relativo</h3>
 	<select multiple="multiple" id="sc-mawr" name="select1" style="width:200px;height:100px;">
 		<option value="1" >opcion 1</option>
@@ -239,17 +244,19 @@ $("select").change(function(){
 		console.debug($(this).val());
 	}catch(e){}
 });
+-->
 	</pre>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("select").change(function(){
 				try{
-					console.debug("change fired on #"+$(this).attr("id")+" val:");
-					console.debug($(this).val());
+					//console.debug("change fired on #"+$(this).attr("id")+" val:");
+					//console.debug($(this).val());
 				}catch(e){}
 			});
 		});
 	</script>
+	
 </form>
 </body>
 </html>
