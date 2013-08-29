@@ -104,7 +104,7 @@
 				context.sc.removeClass(context.props._disabledClass);
 				context.sc.addClass(context.props._enabledClass);
 			},
-			disable:function(contect){
+			disable:function(context){
 				var context = context || this._parent;
 				context.props.disabled = true;
 				context.sc.removeClass(context.props._enabledClass);
