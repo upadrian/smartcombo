@@ -4,8 +4,8 @@
 *
 * version 2.0 08/2013
 *	
-* 	bugfix y notas de la version:
-*	-----------------------------+
+* bugfix y notas de la version:
+* -----------------------------+
 *		2
 *			Nuevo template para el plugin, codebeauty, y algunos fixes
 *		1.5
@@ -29,16 +29,8 @@
 *
 *
 */
-;
-(function($, window, document, undefined) {
-	// undefined is used here as the undefined global variable in ECMAScript 3 is
-	// mutable (ie. it can be changed by someone else). undefined isn't really being
-	// passed in so we can ensure the value of it is truly undefined. In ES5, undefined
-	// can no longer be modified.
-	// window and document are passed through as local variable rather than global
-	// as this (slightly) quickens the resolution process and can be more efficiently
-	// minified (especially when both are regularly referenced in your plugin).
-	// Create the defaults once
+;(function($, window, document, undefined) {
+	'use strict';
 	var pluginName = "smartCombo",
 		defaults = {
 			_class: 'sc',
@@ -54,8 +46,6 @@
 			_initialState: 'close',
 			showSelectedLabels: true
 		};
-	// The actual plugin constructor
-
 	function Plugin(element, options) {
 		//elemento en el dom y marco
 		this.element = element;
@@ -70,7 +60,7 @@
 		//solo en elementos con ID
 		if(!this.$element.attr("id")) $.error('smartCombo needs ID attribute.');
 		//solo se puede inicializar un SELECT
-		if (!this.$element.prop('tagName') == "SELECT") $.error('smartCombo only be applied to a SELECT tag (' + this.$element.prop('tagName') + ')');
+		if (this.$element.prop('tagName') != "SELECT") $.error('smartCombo only be applied to a SELECT tag (' + this.$element.prop('tagName') + ')');
 		this.props = {
 			multiple: (this.$element.attr("multiple")) ? true : false,
 			destID: 'sc_' + this.$element.attr("id"),
@@ -111,9 +101,10 @@
 				context.sc.addClass(context.props._disabledClass);
 			},
 			reArmFromSource: function(context) {
-				var context = context || this._parent;
 				//rearma el sc desde el select
-                var indexes = [];
+				var context = context || this._parent,
+					indexes = [],
+					vi;
 				for (vi = 0; vi < context.sourceNode.options.length; vi++)
 					if (context.sourceNode.options.item(vi).selected) 
 						indexes.push(String(vi));
@@ -126,12 +117,12 @@
 				});
                 //Pone selected en los optgroups si todas las opciones, dentro de un optgroup están seleccionadas
 				context.sc_optgroups.each(function() {
-					var optgroupJQO = $(this)
-					ok = true;
+					var optgroupJQO = $(this),
+						ok = true;
 					//todos los <a> dentro de <li>._liClass dentro de optgroupJQO
 					$("." + context.props._liClass + " a", optgroupJQO).each(function() {
 						if (!$(this).hasClass(context.props._optionSelectedClass)) ok = false;
-					})
+					});
 					if (ok) 
 						optgroupJQO.data("seleccionado", true).children("a").addClass(context.props._optgroupSelectedClass);
 					else
@@ -157,7 +148,7 @@
 			html += '		<ul class="' + this.props._ulClass + '">';
 			this.$element.children("optgroup,option").each(function() {
 				html += context.getNode($(this));
-			})
+			});
 			html += '		</ul>';
 			html += '	</div>';
 			html += '</div>';
@@ -185,7 +176,7 @@
 				html += '	<ul>';
 				$element.children("option").each(function() {
 					html += context.getNode($(this));
-				})
+				});
 				html += '	</ul>';
 				html += '</li>';
 			} else {
@@ -208,12 +199,12 @@
 			this.sc_options.click(function() {
 				if(!context.props.disabled)
 					context.clickOnOption($(this));
-			})
+			});
 			if (this.props.multiple) { //si es multiple y tiene optgroups, click en el optgroup selecciona (o no) todas las opciones
 				this.sc_optgroups_labels.click(function() {
 					if(!context.props.disabled)
 						context.clickOnOptGroup($(this).parent());
-				})
+				});
 			}
 		},
 		setEvents: function() {
@@ -238,7 +229,6 @@
 			// TODO
 		},
 		populateLabels: function() {
-			var context = this;
 			//obtiene los labels de los options seleccionados y los pone en sc_label
 			var tmp = [];
 			$("." + this.props._optionSelectedClass + " span", this.sc).each(function() {
@@ -264,19 +254,20 @@
 				} else {
 					$("." + this.props._liClass + " a", optgroup).addClass(this.props._optionSelectedClass);
 					optgroup.data("seleccionado", true).children("a").addClass(this.props._optgroupSelectedClass);
-				};
+				}
 				this.populateLabels();
 				this.updateSelect();
 			}
 		},
 		updateSelect: function() {
-			var context = this;
-            //rearma el select, desde el SC, despues de que se clickea una opcion en el sc
-			var indexes = [];
+			//rearma el select, desde el SC, despues de que se clickea una opcion en el sc
+			var context = this,
+				indexes = [],
+				c;
 			this.sc_options.each(function() {
 				if ($(this).hasClass(context.props._optionSelectedClass))
                     indexes.push($(this).attr("index"));
-			})
+			});
             //selecciona las indicadas y de-selecciona las demás                
 			for (c=0;c<this.sourceNode.options.length;c++)     
                 this.sourceNode.options.item(c).selected = (jQuery.inArray(String(c),indexes)!=-1)?true:false;
@@ -290,19 +281,19 @@
 				this.wrapper.css("display", "block");
 				return true;
 			} else
-				return context.settings._open;
+				return this.settings._open;
 		},
 		closeWrapper: function() {
 			if(!this.props.disabled){
 				this.wrapper.css("display", "none");
 				return false;
 			}else
-				return context.settings._open;
+				return this.settings._open;
 		},
 		clickOnOption: function(selectedOption) {
 			var context = this;
 			if(!context.props.disabled){
-	            //click en una opcion
+				//click en una opcion
 				if (!this.props.multiple) { //si no es múltiple, entonces remueve el selected de todas las opciones
 					this.sc_options.removeClass(this.props._optionSelectedClass);
 					if (this.settings._closeOnClick) //si _closeOnClick = true, cierra wrapper
@@ -318,7 +309,7 @@
 					$("." + this.props._liClass + " a", optgroupJQO).each(function() {
 						if (!$(this).hasClass(context.props._optionSelectedClass)) 
 							ok = false;
-					})
+					});
 					if (ok) 
 						optgroupJQO.data("seleccionado", true).children("a").addClass(this.props._optgroupSelectedClass);
 					else
