@@ -2,32 +2,35 @@
 * Convierte un combo multiple en botones clickeables
 * author: upadrian@gmail.com
 *
-* version 2.0 08/2013
+* version 2.0.1 01/2014
 *	
-* bugfix y notas de la version:
+* what's new:
 * -----------------------------+
-*		2
-*			Nuevo template para el plugin, codebeauty, y algunos fixes
-*		1.5
-*			
-*		1.0.5
-*			más bugfix(no selecciona el primer elemento cuando hay un elemento con selected="selected" desde el HTML). Agregado los comentarios
-*		1.0.4.2
-*			css fixed en theme/pela
-*			br remove en el armado html
-*		1.0.4.1
-*			Para un selector que refiera a varios elementos, los tomaba como uno solo. Por ejemplo $("#select1,#select2")
-*			
-*		1.0.4
-*			Revisado el rendimiendo. Ahora se thisan las consultas al DOM. Se eliminan variables sin usar. TODO: resolver el
-*			pie "seleccionar todos / ninguno" de los combos multiples y multiples con optgroups
-*		1.0.3
-*			bug en chrome, no dejaba de-seleccionar una opcion, en un combo multiple y en un combo multiple con optgroup
-*		1.0.2
-*			En un select simple, al seleccionar un elemento por primera vez, estando anteriormente seleccionado 
-*			el elemento superior, no actualizaba el valor seleccionado en el select. M?todo: updateSelect
+*	2.0.1		01/2014
+*		Se agregó el método destroy() y algunos fixes menores.
+*	2.0		08/2013
+*		Nuevo template para el plugin, codebeauty, y algunos fixes
+*	1.5
+*	1.0.5
+*		más bugfix(no selecciona el primer elemento cuando hay un elemento con selected="selected" desde el HTML). Agregado los comentarios
+*	1.0.4.2
+*		css fixed en theme/pela
+*		br remove en el armado html
+*	1.0.4.1
+*		Para un selector que refiera a varios elementos, los tomaba como uno solo. Por ejemplo $("#select1,#select2")		
+*	1.0.4
+*		Revisado el rendimiendo. 
+*	1.0.3
+*		bug en chrome, no dejaba de-seleccionar una opcion, en un combo multiple y en un combo multiple con optgroup
+*	1.0.2
+*		En un select simple, al seleccionar un elemento por primera vez, estando anteriormente seleccionado 
+*		el elemento superior, no actualizaba el valor seleccionado en el select. M?todo: updateSelect
 *
-*
+* TODO:
+* -----------------------------+
+*	resolver el pie "seleccionar todos / ninguno" de los combos multiples y multiples con optgroups
+
+
 */
 ;(function($, window, document, undefined) {
 	'use strict';
@@ -88,6 +91,14 @@
 	Plugin.prototype = {
 		_public:{
 			_parent:{},
+			destroy : function () {
+				var context = context || this._parent;
+				context.sc.remove();
+				context.$element
+					.toggle()
+					.removeData("plugin_smartCombo")
+					.removeData("plugin_smartCombo_context");
+			},
 			enable:function(context){
 				var context = context || this._parent;
 				context.props.disabled = false;
@@ -141,16 +152,16 @@
 			var context = this;
 			var html = '';
 			html += '<div id="' + this.props.destID + '" class="' + this.settings._class + '">';
-			html += '	<div class="' + this.props._labelClass + '">';
-			html += '		<a href="javascript:;" title="' + ((this.props.multiple) ? this.settings._text_labelMultiple : this.settings._text_labelSimple) + '">' + ((this.props.multiple) ? this.settings._text_labelMultiple : this.settings._text_labelSimple) + '</a>';
-			html += '	</div>';
-			html += '	<div class="' + this.props._wrapperClass + '" style="position:' + this.settings._wrapperPosition + '">';
-			html += '		<ul class="' + this.props._ulClass + '">';
+			html += '<div class="' + this.props._labelClass + '">';
+			html += '<a href="javascript:;" title="' + ((this.props.multiple) ? this.settings._text_labelMultiple : this.settings._text_labelSimple) + '">' + ((this.props.multiple) ? this.settings._text_labelMultiple : this.settings._text_labelSimple) + '</a>';
+			html += '</div>';
+			html += '<div class="' + this.props._wrapperClass + '" style="position:' + this.settings._wrapperPosition + '">';
+			html += '<ul class="' + this.props._ulClass + '">';
 			this.$element.children("optgroup,option").each(function() {
 				html += context.getNode($(this));
 			});
-			html += '		</ul>';
-			html += '	</div>';
+			html += '</ul>';
+			html += '</div>';
 			html += '</div>';
 			this.$element.css("display", "none").after(html);
 			this.sc = $("#" + this.props.destID);
@@ -172,20 +183,20 @@
 				html += '<li class="' + this.props._liClassOptGroup + '">';
 				if (this.props.multiple) html += '	<a href="javascript:;" class="' + this.props._liClassOptGroupLabel + '" title="' + $element.attr("label") + '">' + $element.attr("label") + '</a>';
 				else
-				html += '	<span class="' + this.props._liClassOptGroupLabel + '" >' + $element.attr("label") + '</span>';
-				html += '	<ul>';
+				html += '<span class="' + this.props._liClassOptGroupLabel + '" >' + $element.attr("label") + '</span>';
+				html += '<ul>';
 				$element.children("option").each(function() {
 					html += context.getNode($(this));
 				});
-				html += '	</ul>';
+				html += '</ul>';
 				html += '</li>';
 			} else {
 				html += '<li class="' + this.props._liClass + '" val="' + $element.val() + '">';
-				html += '	<a href="javascript:;" inheritedValue="' + $element.val() + '" index="' + JSOnode.index + '">';
-				html += '		<span>';
+				html += '<a href="javascript:;" inheritedValue="' + $element.val() + '" index="' + JSOnode.index + '">';
+				html += '<span>';
 				html += $element.html();
-				html += '		</span>';
-				html += '	</a>';
+				html += '</span>';
+				html += '</a>';
 				html += '</li>';
 			}
 			return html;
@@ -224,9 +235,6 @@
 			this._public.reArmFromSource();
 			if (this.settings._initialState == 'open') this.openWrapper();
 			
-		},
-		destroy: function() {
-			// TODO
 		},
 		populateLabels: function() {
 			//obtiene los labels de los options seleccionados y los pone en sc_label
