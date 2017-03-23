@@ -8,6 +8,7 @@
  * -----------------------------+
  *  2.0.2   03/2017
  *      Actualización. Si el nodo <option></option> está vacío y no tiene value, no se muestra
+ *      Se agrega "populateLabels" como metodo público
  *	2.0.1   01/2014
  *		Se agregó el método destroy() y algunos fixes menores.
  *	2.0		08/2013
@@ -119,6 +120,10 @@
 				context.props.disabled = true;
 				context.sc.removeClass(context.props._enabledClass);
 				context.sc.addClass(context.props._disabledClass);
+			},
+			populateLabels:function(context){
+				context = context || this._parent;
+				context.populateLabels();
 			},
 			reArmFromSource: function(context) {
 				//rearma el sc desde el select
